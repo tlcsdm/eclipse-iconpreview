@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	<extension point="org.eclipse.ui.preferencePages">
+		<page
+			name="Icon Preview"
+			class="com.tlcsdm.eclipse.iconpreview.preferences.HomePreferencePage"
+			id="com.tlcsdm.eclipse.iconpreview.preferences.HomePreferencePage">
+		</page>
+	</extension>
+    <extension
+          point="org.eclipse.ui.decorators">
+       <decorator
+             class="com.tlcsdm.eclipse.iconpreview.decorator.IconDecorator"
+             icon="icons/image.gif"
+             id="com.tlcsdm.eclipse.iconpreview.icondecorator"
+             label="Icon File Decorator"
+             lightweight="true"
+             location="REPLACE"
+             state="true">
+          <enablement>
+             <objectClass
+                   name="org.eclipse.core.resources.IFile">
+             </objectClass>
+          </enablement>
+       </decorator>
+    </extension>
+	<extension point="org.eclipse.help.toc">
+		<toc file="help/help_toc.xml" primary="true"/>
+	</extension>
+
+</plugin>
