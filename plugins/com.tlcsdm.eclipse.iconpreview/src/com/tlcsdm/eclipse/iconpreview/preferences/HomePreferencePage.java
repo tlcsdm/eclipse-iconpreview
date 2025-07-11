@@ -15,7 +15,6 @@ import com.tlcsdm.eclipse.iconpreview.decorator.IconDecorator;
 
 /**
  * @author unknowIfGuestInDream
- * @version 1.0.0
  */
 public class HomePreferencePage extends PreferencePage implements IWorkbenchPreferencePage {
 

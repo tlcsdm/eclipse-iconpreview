@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Automatic-Module-Name: com.tlcsdm.eclipse.iconpreview
 Bundle-Name: %pluginName
 Bundle-SymbolicName: com.tlcsdm.eclipse.iconpreview;singleton:=true
-Bundle-Version: 1.0.0
+Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: com.tlcsdm.eclipse.iconpreview.Activator
 Bundle-Vendor: %providerName
 Require-Bundle: org.eclipse.ui,

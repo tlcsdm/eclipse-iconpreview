@@ -9,6 +9,9 @@ Now support the following image formats:
 * bmp
 * ico
 
+## Use
+![screenshot](https://raw.github.com/tlcsdm/eclipse-iconpreview/master/plugins/com.tlcsdm.eclipse.iconpreview/help/images/example.png)
+
 ## Build
 
 This project uses [Tycho](https://github.com/eclipse-tycho/tycho) with [Maven](https://maven.apache.org/) to build. It requires Maven 3.9.0 or higher version.
