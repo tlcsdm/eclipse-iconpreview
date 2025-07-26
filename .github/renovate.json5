@@ -17,15 +17,14 @@
     {
       "fileMatch": ["^.*\\.target$"],
       "matchStrings": [
-        "<repository location=\"https://mirrors\\.aliyun\\.com/eclipse/releases/(?<depName>[^/]+)/\""
+        "<repository location=\"https://mirrors\\.aliyun\\.com/eclipse/releases/(?<depName>[^/]+)/(?<currentValue>[^/]+)/\""
       ],
       "depNameTemplate": "eclipse-release",
       "versioningTemplate": "loose",
-      "datasourceTemplate": "github-tags",
+      "datasourceTemplate": "maven",
       "packageNameTemplate": "eclipse/releases"
     }
   ],
-
   "commitMessagePrefix": "chore(deps):",
   "dependencyDashboard": true,
   "timezone": "Asia/Shanghai"
