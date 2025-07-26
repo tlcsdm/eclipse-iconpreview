@@ -1,0 +1,32 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended",
+    ":semanticCommits",
+    ":label(dependencies)",
+    "schedule:weekly"
+  ],
+  "enabledManagers": ["maven"],
+  "maven": {
+    "fileMatch": [
+      "^pom\\.xml$",
+      "^.*\\/pom\\.xml$"
+    ]
+  },
+  "regexManagers": [
+    {
+      "fileMatch": ["^.*\\.target$"],
+      "matchStrings": [
+        "<repository location=\"https://mirrors\\.aliyun\\.com/eclipse/releases/(?<depName>[^/]+)/\""
+      ],
+      "depNameTemplate": "eclipse-release",
+      "versioningTemplate": "loose",
+      "datasourceTemplate": "github-tags",
+      "packageNameTemplate": "eclipse/releases"
+    }
+  ],
+
+  "commitMessagePrefix": "chore(deps):",
+  "dependencyDashboard": true,
+  "timezone": "Asia/Shanghai"
+}
