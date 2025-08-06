@@ -1,31 +1,36 @@
 {
-  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "config:recommended",
-    ":semanticCommits",
-    ":label(dependencies)",
-    "schedule:weekly"
+  $schema: 'https://docs.renovatebot.com/renovate-schema.json',
+  extends: [
+    'config:recommended',
+    ':semanticCommits',
+    ':label(dependencies)',
+    'schedule:weekly',
   ],
-  "enabledManagers": ["maven"],
-  "maven": {
-    "fileMatch": [
-      "^pom\\.xml$",
-      "^.*\\/pom\\.xml$"
-    ]
+  enabledManagers: [
+    'maven',
+  ],
+  maven: {
+    managerFilePatterns: [
+      '/^pom\\.xml$/',
+      '/^.*\\/pom\\.xml$/',
+    ],
   },
-  "regexManagers": [
+  customManagers: [
     {
-      "fileMatch": ["^.*\\.target$"],
-      "matchStrings": [
-        "<repository location=\"https://mirrors\\.aliyun\\.com/eclipse/releases/(?<depName>[^/]+)/(?<currentValue>[^/]+)/\""
+      customType: 'regex',
+      managerFilePatterns: [
+        '/^.*\\.target$/',
       ],
-      "depNameTemplate": "eclipse-release",
-      "versioningTemplate": "loose",
-      "datasourceTemplate": "maven",
-      "packageNameTemplate": "eclipse/releases"
-    }
+      matchStrings: [
+        '<repository location="https://mirrors\\.aliyun\\.com/eclipse/releases/(?<depName>[^/]+)/(?<currentValue>[^/]+)/"',
+      ],
+      depNameTemplate: 'eclipse-release',
+      versioningTemplate: 'loose',
+      datasourceTemplate: 'maven',
+      packageNameTemplate: 'eclipse/releases',
+    },
   ],
-  "commitMessagePrefix": "chore(deps):",
-  "dependencyDashboard": true,
-  "timezone": "Asia/Shanghai"
+  commitMessagePrefix: 'chore(deps):',
+  dependencyDashboard: true,
+  timezone: 'Asia/Shanghai',
 }
