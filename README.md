@@ -1,6 +1,6 @@
 # IconPreview
 
-IconPreview is a plugin for Eclipse, it opened the files selected in “Package Explorer” and “Navigator” in the system file browser.
+IconPreview is a lightweight Eclipse plugin that allows you to preview image files in the Eclipse "Package Explorer" view.
 
 Now support the following image formats:  
 * png
