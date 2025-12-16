@@ -9,6 +9,8 @@ Now support the following image formats:
 * bmp
 * ico
 
+Now Support Eclipse 2024-06 and later, Mac OS X, Linux (with nautilus) and Windows.
+
 ## Use
 ![screenshot](https://raw.github.com/tlcsdm/eclipse-iconpreview/master/plugins/com.tlcsdm.eclipse.iconpreview/help/images/example.png)
 
