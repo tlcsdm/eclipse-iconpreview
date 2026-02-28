@@ -45,7 +45,7 @@ public class HomePreferencePage extends PreferencePage implements IWorkbenchPref
 		return composite;
 	}
 
-	protected Label createLabel(Composite parent, String text) {
+	private Label createLabel(Composite parent, String text) {
 		Label label = new Label(parent, SWT.LEFT);
 		label.setText(text);
 		GridData data = new GridData();
