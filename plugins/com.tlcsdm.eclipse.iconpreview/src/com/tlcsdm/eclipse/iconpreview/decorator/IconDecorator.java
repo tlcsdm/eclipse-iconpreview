@@ -1,8 +1,9 @@
 package com.tlcsdm.eclipse.iconpreview.decorator;
 
 import java.io.InputStream;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResourceChangeEvent;
@@ -10,21 +11,28 @@ import org.eclipse.core.resources.IResourceChangeListener;
 import org.eclipse.core.resources.IResourceDelta;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.ILog;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.BaseLabelProvider;
 import org.eclipse.jface.viewers.IDecoration;
 import org.eclipse.jface.viewers.ILightweightLabelDecorator;
-import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PlatformUI;
+
+import com.tlcsdm.eclipse.iconpreview.Activator;
 
 public class IconDecorator extends BaseLabelProvider implements ILightweightLabelDecorator, IResourceChangeListener {
 
 	public static final String[] SUPPORTED_EXTENSIONS = { "png", "jpg", "jpeg", "gif", "bmp", "ico" };
 
-	// 缓存缩略图
-	private final Map<IFile, ImageDescriptor> imageCache = new HashMap<>();
+	private static final Set<String> SUPPORTED_EXTENSIONS_SET = Set.of(SUPPORTED_EXTENSIONS);
+
+	private static final ILog LOGGER = ILog.of(IconDecorator.class);
+
+	private final ConcurrentMap<IFile, ImageDescriptor> imageCache = new ConcurrentHashMap<>();
 
 	public IconDecorator() {
 		ResourcesPlugin.getWorkspace().addResourceChangeListener(this, IResourceChangeEvent.POST_CHANGE);
@@ -44,22 +52,17 @@ public class IconDecorator extends BaseLabelProvider implements ILightweightLabe
 	}
 
 	private boolean isSupportedImage(String ext) {
-		for (String supported : SUPPORTED_EXTENSIONS) {
-			if (supported.equalsIgnoreCase(ext)) {
-				return true;
-			}
-		}
-		return false;
+		return SUPPORTED_EXTENSIONS_SET.contains(ext.toLowerCase());
 	}
 
 	private ImageDescriptor createImageDescriptor(IFile file) {
 		try (InputStream is = file.getContents()) {
 			ImageData imageData = new ImageData(is);
 			ImageData scaled = imageData.scaledTo(16, 16);
-			Image image = new Image(Display.getDefault(), scaled);
-			return ImageDescriptor.createFromImage(image);
+			return ImageDescriptor.createFromImageDataProvider(zoom -> scaled);
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOGGER.log(new Status(IStatus.WARNING, Activator.PLUGIN_ID,
+					"Failed to create image descriptor for: " + file.getFullPath(), e));
 			return null;
 		}
 	}
@@ -76,14 +79,15 @@ public class IconDecorator extends BaseLabelProvider implements ILightweightLabe
 							imageCache.remove(file);
 							Display.getDefault().asyncExec(() -> {
 								PlatformUI.getWorkbench().getDecoratorManager()
-										.update("com.tlcsdm.eclipse.iconpreview.icondecorator");
+										.update(Activator.DECORATOR_ID);
 							});
 						}
 					}
 					return true;
 				});
 			} catch (CoreException e) {
-				e.printStackTrace();
+				LOGGER.log(new Status(IStatus.ERROR, Activator.PLUGIN_ID,
+						"Error processing resource change event", e));
 			}
 		}
 	}

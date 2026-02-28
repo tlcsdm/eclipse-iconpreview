@@ -21,17 +21,12 @@ import org.osgi.framework.BundleContext;
 public class Activator extends AbstractUIPlugin {
 	/** The plug-in ID */
 	public static final String PLUGIN_ID = "com.tlcsdm.eclipse.iconpreview"; //$NON-NLS-1$
+	/** The decorator ID */
+	public static final String DECORATOR_ID = "com.tlcsdm.eclipse.iconpreview.icondecorator"; //$NON-NLS-1$
 	public static final String VERSION = "1.0.0";
 
 	// The shared instance
 	private static Activator plugin;
-
-	/**
-	 * The constructor
-	 */
-	public Activator() {
-		plugin = this;
-	}
 
 	/**
 	 * Returns the shared instance
@@ -42,26 +37,15 @@ public class Activator extends AbstractUIPlugin {
 		return plugin;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.ui.plugin.AbstractUIPlugin#start(org.osgi.framework.
-	 * BundleContext)
-	 */
 	@Override
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
+		plugin = this;
 		Display.getDefault().asyncExec(() -> {
-			PlatformUI.getWorkbench().getDecoratorManager().update("com.tlcsdm.eclipse.iconpreview.icondecorator");
+			PlatformUI.getWorkbench().getDecoratorManager().update(DECORATOR_ID);
 		});
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.ui.plugin.AbstractUIPlugin#stop(org.osgi.framework.BundleContext)
-	 */
 	@Override
 	public void stop(BundleContext context) throws Exception {
 		plugin = null;
