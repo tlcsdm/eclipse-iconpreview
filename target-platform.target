@@ -2,9 +2,6 @@
 <?pde version="3.8"?>
 <target includeMode="feature" name="target-platform">
     <locations>
-        <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
-            <repository location="https://mirrors.aliyun.com/eclipse/releases/2024-06/"/>
-            <unit id="org.eclipse.platform.feature.group" version="0.0.0"/>
-        </location>
+        <location type="Target" uri="file:${project_loc:/com.tlcsdm.eclipse.iconpreview}/../../targets/2024-06.target"/>
     </locations>
 </target>
